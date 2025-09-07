@@ -677,3 +677,42 @@ img {
     --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 }
+/* Add this to your index.css file */
+
+@media (max-width: 992px) {
+  /* Targets the main grid layout in CartPage.jsx */
+  .cart-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .order-summary {
+    position: static !important;
+    /* On smaller screens, move the summary to the top */
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+
+  .cart-item-card > div {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .cart-item-card img {
+    width: 100% !important;
+    height: 200px !important;
+    max-width: 300px;
+    margin: 0 auto 1rem;
+  }
+
+  .cart-item-controls {
+    flex-direction: column;
+  }
+}
