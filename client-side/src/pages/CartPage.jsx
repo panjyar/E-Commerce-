@@ -220,6 +220,7 @@ const CartPage = () => {
                           margin: "0 0 0.5rem",
                           fontSize: "1.2rem",
                           lineHeight: "1.4",
+                          color: "var(--primary-color)",
                         }}
                       >
                         {item.product.name}
@@ -281,6 +282,7 @@ const CartPage = () => {
                             textAlign: "center",
                             fontWeight: "600",
                             fontSize: "1.1rem",
+                            color: "var(--primary-color)",
                           }}
                         >
                           {item.quantity}
@@ -373,7 +375,7 @@ const CartPage = () => {
             top: "20px",
           }}
         >
-          <h3 style={{ margin: "0 0 1.5rem", fontSize: "1.4rem" }}>
+          <h3 style={{ margin: "0 0 1.5rem", fontSize: "1.4rem", color: "var(--primary-color)" }}>
             Order Summary
           </h3>
 
@@ -386,15 +388,16 @@ const CartPage = () => {
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <span>Subtotal ({totalItems} items):</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span style={{ color: "var(--primary-color)" }}>Subtotal ({totalItems} items):</span>
+              <span style={{ color: "var(--primary-color)" }}>${subtotal.toFixed(2)}</span>
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <span>Shipping:</span>
+              <span style={{ color: "var(--primary-color)" }}>Shipping:</span>
               <span
                 style={{
                   color: shipping === 0 ? "var(--success-color)" : "inherit",
+
                 }}
               >
                 {shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`}
@@ -402,19 +405,19 @@ const CartPage = () => {
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <span>Tax:</span>
-              <span>${tax.toFixed(2)}</span>
+              <span style={{ color: "var(--primary-color)" }}>Tax:</span>
+              <span style={{ color: "var(--primary-color)" }}>${tax.toFixed(2)}</span>
             </div>
 
             {shipping > 0 && (
               <div
                 style={{
                   fontSize: "0.85rem",
-                  color: "#6c757d",
                   padding: "0.5rem",
                   backgroundColor: "#f8f9fa",
                   borderRadius: "calc(var(--border-radius) / 2)",
                   marginTop: "0.5rem",
+                  color: "var(--primary-color)"
                 }}
               >
                 Add ${(50 - subtotal).toFixed(2)} more for free shipping!
@@ -437,7 +440,7 @@ const CartPage = () => {
                 fontWeight: "700",
               }}
             >
-              <span>Total:</span>
+              <span style={{ color: "var(--primary-color)" }}>Total:</span>
               <span style={{ color: "var(--primary-color)" }}>
                 ${total.toFixed(2)}
               </span>

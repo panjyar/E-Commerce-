@@ -295,7 +295,7 @@ const ProductCard = ({ product }) => {
             ) : (
               <>
                 <ShoppingCart size={16} />
-                {isOutOfStock ? 'Sold Out' : 'Add to Cart'}
+                {isOutOfStock ? 'Sold Out' : 'Add to ttry Cart'}
               </>
             )}
           </button>

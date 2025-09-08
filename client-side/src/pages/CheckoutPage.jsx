@@ -77,7 +77,7 @@ const CheckoutPage = () => {
     city: '',
     state: '',
     zipCode: '',
-    country: 'United States'
+    country: 'India'
   });
 
   const [paymentDetails, setPaymentDetails] = useState({
@@ -370,7 +370,7 @@ const CheckoutPage = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group" style={{ color: "var(--primary-color)" }}>
                   <label>Country *</label>
                   <select
                     name="country"
@@ -382,6 +382,8 @@ const CheckoutPage = () => {
                     <option value="United States">United States</option>
                     <option value="Canada">Canada</option>
                     <option value="United Kingdom">United Kingdom</option>
+                    <option value="Australia">Australia</option>
+                    <option value="India">India</option>
                   </select>
                 </div>
               </div>
@@ -407,7 +409,7 @@ const CheckoutPage = () => {
                 borderRadius: '0.5rem',
                 marginBottom: '1.5rem'
               }}>
-                <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: '#084298' }}>
                   <strong>Demo Mode:</strong> This is a demonstration. No real payment will be processed.
                   Use the pre-filled card details or enter your own.
                 </p>
@@ -499,7 +501,7 @@ const CheckoutPage = () => {
             <div className="checkout-step">
               <h3>Order Review</h3>
 
-              <div style={{ marginBottom: '1.5rem' }}>
+              <div style={{ marginBottom: '1.5rem', color: "var(--primary-color)" }}>
                 <h4>Shipping Address</h4>
                 <div style={{ backgroundColor: '#f8f9fa', padding: '1rem', borderRadius: '0.5rem' }}>
                   <p style={{ margin: 0 }}>
@@ -513,7 +515,7 @@ const CheckoutPage = () => {
 
               <div style={{ marginBottom: '1.5rem' }}>
                 <h4>Payment Method</h4>
-                <div style={{ backgroundColor: '#f8f9fa', padding: '1rem', borderRadius: '0.5rem' }}>
+                <div style={{ backgroundColor: '#f8f9fa', padding: '1rem', borderRadius: '0.5rem' , color: "var(--primary-color)" }}>
                   <p style={{ margin: 0 }}>
                     Credit Card ending in {paymentDetails.cardNumber.slice(-4)}<br />
                     {paymentDetails.cardholderName}
@@ -548,7 +550,7 @@ const CheckoutPage = () => {
           position: 'sticky',
           top: '20px'
         }}>
-          <h3 style={{ margin: '0 0 1rem' }}>Order Summary</h3>
+          <h3 style={{ margin: '0 0 1rem', color: "var(--primary-color)" }}>Order Summary</h3>
 
           <div style={{ marginBottom: '1rem', maxHeight: '300px', overflowY: 'auto' }}>
             {validCartItems.map(item => (
@@ -565,7 +567,7 @@ const CheckoutPage = () => {
                   style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '0.25rem' }}
                 />
                 <div style={{ flex: 1 }}>
-                  <h5 style={{ margin: '0 0 0.25rem', fontSize: '0.9rem' }}>{item.product.name}</h5>
+                  <h5 style={{ margin: '0 0 0.25rem', fontSize: '0.9rem', color: "var(--primary-color)" }}>{item.product.name}</h5>
                   <p style={{ margin: 0, color: '#6c757d', fontSize: '0.85rem' }}>
                     Qty: {item.quantity} × ${item.product.price.toFixed(2)}
                   </p>
@@ -579,16 +581,16 @@ const CheckoutPage = () => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>Subtotal:</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span style={{ color: "var(--primary-color)" }}>Subtotal:</span>
+              <span style={{ color: "var(--primary-color)" }}>${subtotal.toFixed(2)}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>Shipping:</span>
-              <span>{shipping === 0 ? 'FREE' : `${shipping.toFixed(2)}`}</span>
+              <span style={{ color: "var(--primary-color)" }}>Shipping:</span>
+              <span style={{ color: "var(--primary-color)" }}>{shipping === 0 ? 'FREE' : `${shipping.toFixed(2)}`}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>Tax:</span>
-              <span>${tax.toFixed(2)}</span>
+              <span style={{ color: "var(--primary-color)" }}>Tax:</span>
+              <span style={{ color: "var(--primary-color)" }}>${tax.toFixed(2)}</span>
             </div>
             <div style={{
               borderTop: '2px solid #e9ecef',
