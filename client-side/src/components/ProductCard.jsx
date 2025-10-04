@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { ShoppingCart, Heart, Eye, Star, Package } from 'lucide-react';
@@ -7,11 +7,12 @@ import api from '../api/axiosConfig';
 const ProductCard = ({ product }) => {
   const { user, setUser } = useAuth();
   const [loading, setLoading] = useState({ cart: false, wishlist: false });
+  const [buttonText, setButtonText] = useState('Add to Cart');
   const [isWishlisted, setIsWishlisted] = useState(
     user?.wishlist?.some(item => item._id === product._id) || false
   );
 
-  const handleAddToCart = async (e) => {
+  const handleAddToCart = useCallback(async (e) => {
     e.preventDefault();
     e.stopPropagation();
     
@@ -27,17 +28,17 @@ const ProductCard = ({ product }) => {
         productId: product._id, 
         quantity: 1 
       });
-      setUser({ ...user, cart: updatedCart });
+      
+      // Use functional update to prevent re-render issues
+      setUser(prevUser => {
+        if (!prevUser) return prevUser;
+        return { ...prevUser, cart: updatedCart };
+      });
       
       // Show success feedback
-      const button = e.target.closest('button');
-      const originalText = button.textContent;
-      button.textContent = 'Added!';
-      button.style.backgroundColor = 'var(--success-color)';
-      
+      setButtonText('✓ Added!');
       setTimeout(() => {
-        button.textContent = originalText;
-        button.style.backgroundColor = '';
+        setButtonText('Add to Cart');
       }, 2000);
       
     } catch (error) {
@@ -46,9 +47,9 @@ const ProductCard = ({ product }) => {
     } finally {
       setLoading(prev => ({ ...prev, cart: false }));
     }
-  };
+  }, [user, product._id, setUser]);
 
-  const handleToggleWishlist = async (e) => {
+  const handleToggleWishlist = useCallback(async (e) => {
     e.preventDefault();
     e.stopPropagation();
     
@@ -62,11 +63,17 @@ const ProductCard = ({ product }) => {
     try {
       if (isWishlisted) {
         const { data: updatedWishlist } = await api.delete(`/wishlist/remove/${product._id}`);
-        setUser({ ...user, wishlist: updatedWishlist });
+        setUser(prevUser => {
+          if (!prevUser) return prevUser;
+          return { ...prevUser, wishlist: updatedWishlist };
+        });
         setIsWishlisted(false);
       } else {
         const { data: updatedWishlist } = await api.post('/wishlist/add', { productId: product._id });
-        setUser({ ...user, wishlist: updatedWishlist });
+        setUser(prevUser => {
+          if (!prevUser) return prevUser;
+          return { ...prevUser, wishlist: updatedWishlist };
+        });
         setIsWishlisted(true);
       }
     } catch (error) {
@@ -75,7 +82,7 @@ const ProductCard = ({ product }) => {
     } finally {
       setLoading(prev => ({ ...prev, wishlist: false }));
     }
-  };
+  }, [user, product._id, isWishlisted, setUser]);
 
   const isOutOfStock = product.stock === 0;
   const isLowStock = product.stock > 0 && product.stock <= 5;
@@ -146,12 +153,12 @@ const ProductCard = ({ product }) => {
               opacity: loading.wishlist ? 0.7 : 1
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = 'white';
-              e.target.style.transform = 'scale(1.1)';
+              e.currentTarget.style.background = 'white';
+              e.currentTarget.style.transform = 'scale(1.1)';
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(255, 255, 255, 0.9)';
-              e.target.style.transform = 'scale(1)';
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
             }}
           >
             <Heart 
@@ -280,7 +287,8 @@ const ProductCard = ({ product }) => {
               justifyContent: 'center',
               gap: '0.5rem',
               opacity: isOutOfStock ? 0.5 : 1,
-              cursor: isOutOfStock ? 'not-allowed' : 'pointer'
+              cursor: isOutOfStock ? 'not-allowed' : 'pointer',
+              backgroundColor: buttonText === '✓ Added!' ? '#198754' : ''
             }}
           >
             {loading.cart ? (
@@ -294,8 +302,14 @@ const ProductCard = ({ product }) => {
               }}></div>
             ) : (
               <>
-                <ShoppingCart size={16} />
-                {isOutOfStock ? 'Sold Out' : 'Add to ttry Cart'}
+                {buttonText === '✓ Added!' ? (
+                  buttonText
+                ) : (
+                  <>
+                    <ShoppingCart size={16} />
+                    {isOutOfStock ? 'Sold Out' : buttonText}
+                  </>
+                )}
               </>
             )}
           </button>
