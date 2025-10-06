@@ -44,11 +44,9 @@ const ProductSchema = new Schema({
   toObject: { virtuals: true }
 });
 
-// Index for search functionality
 ProductSchema.index({ name: 'text', description: 'text' });
 ProductSchema.index({ category: 1, price: 1 });
 
-// Virtual for availability status
 ProductSchema.virtual('inStock').get(function() {
   return this.stock > 0;
 });

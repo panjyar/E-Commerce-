@@ -1,9 +1,6 @@
 import User from '../models/userModel.js';
 import Product from '../models/productModel.js';
 
-// @desc    Get user cart
-// @route   GET /api/cart
-// @access  Private
 export const getCart = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate('cart.product');
@@ -14,20 +11,15 @@ export const getCart = async (req, res) => {
   }
 };
 
-// @desc    Add item to cart
-// @route   POST /api/cart/add
-// @access  Private
 export const addToCart = async (req, res) => {
   const { productId, quantity = 1 } = req.body;
 
   try {
-    // Validate product exists
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ msg: 'Product not found' });
     }
 
-    // Check stock availability
     if (product.stock < quantity) {
       return res.status(400).json({ msg: 'Insufficient stock available' });
     }
@@ -41,7 +33,6 @@ export const addToCart = async (req, res) => {
     if (existingItemIndex > -1) {
       const newQuantity = user.cart[existingItemIndex].quantity + quantity;
       
-      // Check total quantity doesn't exceed stock
       if (newQuantity > product.stock) {
         return res.status(400).json({ msg: 'Cannot add more items than available in stock' });
       }
@@ -60,9 +51,6 @@ export const addToCart = async (req, res) => {
   }
 };
 
-// @desc    Update item quantity in cart
-// @route   PUT /api/cart/update/:productId
-// @access  Private
 export const updateCartItem = async (req, res) => {
   const { quantity } = req.body;
 
@@ -71,7 +59,6 @@ export const updateCartItem = async (req, res) => {
       return res.status(400).json({ msg: 'Quantity must be greater than 0' });
     }
 
-    // Validate product exists and has enough stock
     const product = await Product.findById(req.params.productId);
     if (!product) {
       return res.status(404).json({ msg: 'Product not found' });
@@ -102,9 +89,6 @@ export const updateCartItem = async (req, res) => {
   }
 };
 
-// @desc    Remove item from cart
-// @route   POST /api/cart/remove (changed from DELETE to match frontend)
-// @access  Private
 export const removeFromCart = async (req, res) => {
   try {
     const { productId } = req.body;
@@ -123,9 +107,6 @@ export const removeFromCart = async (req, res) => {
   }
 };
 
-// @desc    Clear entire cart
-// @route   DELETE /api/cart/clear
-// @access  Private
 export const clearCart = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);

@@ -1,15 +1,12 @@
 import User from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
 
-// Helper to sign JWT token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '30d',
   });
 };
 
-// @desc    Register a new user
-// @route   POST /api/auth/register
 export async function register(req, res) {
   const { email, password } = req.body;
   try {
@@ -29,9 +26,6 @@ export async function register(req, res) {
     res.status(500).json({ msg: 'Server error', error: error.message });
   }
 }
-
-// @desc    Auth user & get token (Login)
-// @route   POST /api/auth/login
 export async function login(req, res) {
   const { email, password } = req.body;
   try {
@@ -51,8 +45,6 @@ export async function login(req, res) {
   }
 }
 
-// @desc    Get user data
-// @route   GET /api/auth/me
 export async function getMe(req, res) {
   try {
     const user = await User.findById(req.user.id)

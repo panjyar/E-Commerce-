@@ -25,7 +25,7 @@ const UserSchema = new Schema({
     type: String,
     required: [true, 'Please provide a password'],
     minlength: 6,
-    select: false, // Don't send password by default on queries
+    select: false, 
   },
   cart: [CartItemSchema],
   wishlist: [{
@@ -34,7 +34,6 @@ const UserSchema = new Schema({
   }],
 }, { timestamps: true });
 
-// Hash password before saving
 UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     return next();
@@ -44,7 +43,6 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
-// Method to compare passwords
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await compare(enteredPassword, this.password);
 };

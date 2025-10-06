@@ -52,7 +52,6 @@ export const getProductById = async (req, res) => {
   }
 };
 
-// @desc    Create a product (Admin only - simplified)
 // @route   POST /api/products
 export const createProduct = async (req, res) => {
   try {
@@ -80,8 +79,6 @@ export const createProduct = async (req, res) => {
   }
 };
 
-// @desc    Update a product (Admin only - simplified)
-// @route   PUT /api/products/:id
 export const updateProduct = async (req, res) => {
   try {
     const { name, price, description, category, imageUrl, stock } = req.body;
@@ -107,8 +104,6 @@ export const updateProduct = async (req, res) => {
   }
 };
 
-// @desc    Delete a product (Admin only - simplified)
-// @route   DELETE /api/products/:id
 export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
