@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { CreditCard, MapPin, User, Phone, Mail, CheckCircle, ArrowLeft } from 'lucide-react';
 import api from '../api/axiosConfig';
-
+import ClickSpark from "../components/ClickSpark";
 const CheckoutPage = () => {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
@@ -170,6 +170,13 @@ const CheckoutPage = () => {
 
   return (
     <div>
+      <ClickSpark
+  sparkColor='#fff'
+  sparkSize={10}
+  sparkRadius={15}
+  sparkCount={8}
+  duration={400}
+>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
         <button onClick={() => navigate('/cart')} className="btn btn-secondary">
           <ArrowLeft size={18} />
@@ -452,6 +459,7 @@ const CheckoutPage = () => {
           }
         }
       `}</style>
+      </ClickSpark>
     </div>
   );
 };

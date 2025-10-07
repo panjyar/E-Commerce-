@@ -10,6 +10,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import api from "../api/axiosConfig";
+import ClickSpark from "../components/ClickSpark";
 
 const CartPage = () => {
   const { user, setUser } = useAuth();
@@ -118,6 +119,13 @@ const CartPage = () => {
 
   return (
     <div>
+      <ClickSpark
+  sparkColor='#fff'
+  sparkSize={10}
+  sparkRadius={15}
+  sparkCount={8}
+  duration={400}
+>
       <div
         className="page-header cart-grid"
         style={{
@@ -481,6 +489,7 @@ const CartPage = () => {
           </Link>
         </div>
       </div>
+      </ClickSpark>
     </div>
   );
 };

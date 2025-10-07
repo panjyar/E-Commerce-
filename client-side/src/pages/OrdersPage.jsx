@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { Package, Clock, CheckCircle, Truck, XCircle, Calendar, X, MapPin, CreditCard, Mail, Phone } from 'lucide-react';
 import api from '../api/axiosConfig';
-
+import ClickSpark from "../components/ClickSpark";
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -119,6 +119,13 @@ const OrdersPage = () => {
 
   return (
     <>
+    <ClickSpark
+  sparkColor='#fff'
+  sparkSize={10}
+  sparkRadius={15}
+  sparkCount={8}
+  duration={400}
+>
       <div className="page-header" style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
         <Package size={32} style={{ color: 'var(--primary-color)' }} />
         <h1 style={{ margin: 0 }}>My Orders</h1>
@@ -183,7 +190,7 @@ const OrdersPage = () => {
                     style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '0.5rem', border: '1px solid #e9ecef' }}
                   />
                   <div style={{ flex: 1 }}>
-                    <strong style={{ fontSize: '0.95rem' }}>{item.product?.name || 'Unknown Product'}</strong>
+                    <strong style={{ fontSize: '0.95rem' ,color: '#050505ff'}}>{item.product?.name || 'Unknown Product'}</strong>
                     <div style={{ color: '#6c757d', fontSize: '0.85rem', marginTop: '0.25rem' }}>
                       Qty: {item.quantity} × ${item.price?.toFixed(2)}
                     </div>
@@ -242,7 +249,7 @@ const OrdersPage = () => {
               display: 'flex', justifyContent: 'space-between', alignItems: 'center'
             }}>
               <div>
-                <h2 style={{ margin: '0 0 0.5rem', fontSize: '1.75rem' }}>Order Details</h2>
+                <h2 style={{ margin: '0 0 0.5rem', fontSize: '1.75rem' ,color:'#000000ff'}}>Order Details</h2>
                 <span style={{ fontFamily: 'monospace', fontSize: '1rem', color: '#6c757d' }}>
                   #{selectedOrder._id}
                 </span>
@@ -285,7 +292,7 @@ const OrdersPage = () => {
               {/* Shipping Address */}
               {selectedOrder.shippingAddress && (
                 <div style={{ marginBottom: '2rem' }}>
-                  <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', fontSize: '1.25rem' }}>
+                  <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', fontSize: '1.25rem',color:'#000000ff' }}>
                     <MapPin size={20} color="var(--primary-color)" />
                     Delivery Address
                   </h3>
@@ -310,7 +317,7 @@ const OrdersPage = () => {
 
               {/* Order Items */}
               <div style={{ marginBottom: '2rem' }}>
-                <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>Order Items</h3>
+                <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' ,color:'#000000ff'}}>Order Items</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   {selectedOrder.items?.map((item, index) => (
                     <div key={index} style={{
@@ -343,7 +350,7 @@ const OrdersPage = () => {
 
               {/* Payment Summary */}
               <div style={{ padding: '1.5rem', backgroundColor: '#f8f9fa', borderRadius: '0.75rem' }}>
-                <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' ,color:'rgba(0, 0, 0, 1)'}}>
                   <CreditCard size={20} color="var(--primary-color)" />
                   Payment Summary
                 </h3>
@@ -355,7 +362,7 @@ const OrdersPage = () => {
                     </span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.75rem', borderTop: '2px solid #dee2e6' }}>
-                    <span style={{ fontSize: '1.25rem', fontWeight: '700' }}>Total:</span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: '700',color:'rgba(0, 0, 0, 1)' }}>Total:</span>
                     <span style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--primary-color)' }}>
                       ${selectedOrder.totalAmount?.toFixed(2)}
                     </span>
@@ -385,6 +392,7 @@ const OrdersPage = () => {
           }
         }
       `}</style>
+      </ClickSpark>
     </>
   );
 };

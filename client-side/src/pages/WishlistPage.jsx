@@ -1,8 +1,7 @@
-
-import React from 'react';
-import { useAuth } from '../hooks/useAuth';
-import ProductCard from '../components/ProductCard';
-
+import React from "react";
+import { useAuth } from "../hooks/useAuth";
+import ProductCard from "../components/ProductCard";
+import ClickSpark from "../components/ClickSpark";
 const WishlistPage = () => {
   const { user } = useAuth();
 
@@ -17,12 +16,20 @@ const WishlistPage = () => {
 
   return (
     <div>
-      <h1 className="page-title">My Wishlist</h1>
-      <div className="product-grid">
-        {user.wishlist.map(product => (
-          <ProductCard key={product._id} product={product} />
-        ))}
-      </div>
+      <ClickSpark
+        sparkColor="#fff"
+        sparkSize={10}
+        sparkRadius={15}
+        sparkCount={8}
+        duration={400}
+      >
+        <h1 className="page-title">My Wishlist</h1>
+        <div className="product-grid">
+          {user.wishlist.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
+        </div>
+      </ClickSpark>
     </div>
   );
 };

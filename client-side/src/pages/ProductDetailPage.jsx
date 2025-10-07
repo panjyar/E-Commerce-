@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api/axiosConfig';
 import { useAuth } from '../hooks/useAuth';
-
+import ClickSpark from "../components/ClickSpark";
 const ProductDetailPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -59,6 +59,14 @@ const ProductDetailPage = () => {
 
   return (
     <div className="product-detail-layout">
+      <ClickSpark
+  sparkColor='#fff'
+  sparkSize={10}
+  sparkRadius={15}
+  sparkCount={8}
+  duration={400}
+>
+
       <img 
         src={product.imageUrl || 'https://placehold.co/600x600/e9ecef/495057?text=No+Image'} 
         alt={product.name} 
@@ -86,6 +94,7 @@ const ProductDetailPage = () => {
           Add to Cart
         </button>
       </div>
+      </ClickSpark>
     </div>
   );
 };
